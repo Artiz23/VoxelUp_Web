@@ -1,0 +1,26 @@
+{
+    "m_Dictionary": {
+        "m_DictionaryValues": [
+            {
+                "type": "System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
+                "key": "buildOutputDirList",
+                "value": "{\"m_Value\":\"D:/UNITY_PROJECTS/Unity/Projects2023/VoxelUpLTS_WEB/Builds/VoxelUp;D:/UNITY_PROJECTS/Unity/Projects2023/VoxelUpLTS/Builds/VoxelUp;D:/UNITY_PROJECTS/Unity/Projects2023/VoxelUpGitHub/Builds/VoxelUp_0.0.1;D:/UNITY_PROJECTS/Unity/Projects2023/VoxelUpGitHub/Builds/WEB_13;D:/UNITY_PROJECTS/Unity/Projects2023/VoxelUpGitHub/Builds/WEB_12;D:/UNITY_PROJECTS/Unity/Projects2023/VoxelUpGitHub/Builds/WEV_11;D:/UNITY_PROJECTS/Unity/Projects2023/VoxelUpGitHub/Builds/WEB_10;D:/UNITY_PROJECTS/Unity/Projects2023/VoxelUpGitHub/Builds/dddd;D:/UNITY_PROJECTS/Unity/Projects2023/VoxelUpGitHub/Builds/WEB_8;D:/UNITY_PROJECTS/Unity/Projects2023/VoxelUpGitHub/Builds/WEB_7\"}"
+            },
+            {
+                "type": "System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
+                "key": "firstTime",
+                "value": "{\"m_Value\":false}"
+            },
+            {
+                "type": "System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
+                "key": "autoPublish",
+                "value": "{\"m_Value\":true}"
+            },
+            {
+                "type": "System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
+                "key": "createDefaultBuildsFolder",
+                "value": "{\"m_Value\":true}"
+            }
+        ]
+    }
+}
