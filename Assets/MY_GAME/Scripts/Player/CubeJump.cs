@@ -37,22 +37,27 @@ public class CubeJump : MonoBehaviour
     private bool shouldRotate = false;
     private Vector3 desiredRotation = Vector3.zero;
     public Transform childToRotate;
-    private Vector2 touchStartPos;
-    private Vector2 touchEndPos;
-    private float swipeThreshold = 50f;
     public float fallSpeed = 23.0f;
     public bool isFalling;
-    private bool isSwiping = false;
     public bool isMove = true;
-    public Transform rayPosition;
+
+    public Transform rayPositionDown;
     public Transform rayPositionRight;
     public Transform rayPositionLeft;
+    public Transform rayPositionForward;
+    public Transform rayPositionBack;
+
     public LayerMask layerToInclude;
     private int layerMask;
-    public bool canJumpDownR = false;
-    public bool canJumpDownL = false;
+
+
+    public bool canJumpMidR = false;
+    public bool canJumpMidL = false;
+    public bool canJumpMidF = false;
+    public bool canJumpMidB = false;
+
+
     public bool gameStarted = false;
-    private bool touchDown = false;
     public static bool isShop = false;
     private bool isBottleWater = false;
     private bool isHat = false;
@@ -195,7 +200,7 @@ public class CubeJump : MonoBehaviour
     {
         if (isRotating)
         {
-            rotationProgress += rotationSpeedBottle * Time.deltaTime ;
+            rotationProgress += rotationSpeedBottle * Time.deltaTime;
 
             if (rotationProgress >= 1f)
             {
@@ -233,18 +238,17 @@ public class CubeJump : MonoBehaviour
 
         bool newIsOnCube = IsOnCube();
 
-        canJumpDownR = !Physics.Raycast(rayPositionRight.position, Vector3.right, 2.0f,
-            ~(1 << LayerMask.NameToLayer("ignoreRayCast")));
+        canJumpMidR = !Physics.Raycast(rayPositionRight.position, Vector3.right, 2.0f, ~(1 << LayerMask.NameToLayer("ignoreRayCast")));
+        canJumpMidL = !Physics.Raycast(rayPositionLeft.position, Vector3.left, 2.0f, ~(1 << LayerMask.NameToLayer("ignoreRayCast")));
+        canJumpMidF = !Physics.Raycast(rayPositionForward.position, Vector3.forward, 2.0f, ~(1 << LayerMask.NameToLayer("ignoreRayCast")));
+        canJumpMidB = !Physics.Raycast(rayPositionBack.position, Vector3.back, 2.0f, ~(1 << LayerMask.NameToLayer("ignoreRayCast")));
 
-        canJumpDownL = !Physics.Raycast(rayPositionLeft.position, Vector3.left, 2.0f,
-            ~(1 << LayerMask.NameToLayer("ignoreRayCast")));
 
-
-        // Debug.DrawRay(rayPosition.position, Vector3.back * 1.0f, Color.red);
-
-        // Debug.DrawRay(rayPositionRight.position, Vector3.right * 2.0f, Color.red);
-        // Debug.DrawRay(rayPositionLeft.position, Vector3.left * 2.0f, Color.red);
-
+        Debug.DrawRay(rayPositionDown.position, Vector3.down * 1.0f, Color.red);
+        Debug.DrawRay(rayPositionRight.position, Vector3.right * 2.0f, Color.red);
+        Debug.DrawRay(rayPositionLeft.position, Vector3.left * 2.0f, Color.red);
+        Debug.DrawRay(rayPositionForward.position, Vector3.forward * 2.0f, Color.red);
+        Debug.DrawRay(rayPositionBack.position, Vector3.back * 2.0f, Color.red);
 
         //AWSD/////////////////////////////
         if (isMove == true && canPlay == true)
@@ -263,14 +267,11 @@ public class CubeJump : MonoBehaviour
                         gameStarted = true;
                     }
 
-
-
-
                     _randomCube.CreateRandomCube();
 
-                    if (canJumpDownL == true)
+                    if (canJumpMidL == true)
                     {
-                        targetPosition += new Vector3(-2.0f, -1.0f, 0);
+                        targetPosition += new Vector3(-2.0f, 0, 0);
                     }
                     else
                     {
@@ -322,9 +323,9 @@ public class CubeJump : MonoBehaviour
 
 
                     _randomCube.CreateRandomCube();
-                    if (canJumpDownR == true)
+                    if (canJumpMidR == true)
                     {
-                        targetPosition += new Vector3(2.0f, -1.0f, 0);
+                        targetPosition += new Vector3(2.0f, 0, 0);
                     }
                     else
                     {
@@ -368,14 +369,23 @@ public class CubeJump : MonoBehaviour
 
                 else if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
                 {
-
+                    _randomCube.CreateRandomCube();
                     if (gameStarted == false)
                     {
                         startMenu.StartGame();
                         gameStarted = true;
                     }
 
-                    targetPosition += new Vector3(0, -1.0f, -2.0f);
+
+
+                    if (canJumpMidB == true)
+                    {
+                        targetPosition += new Vector3(0, 0, -2.0f);
+                    }
+                    else
+                    {
+                        targetPosition += new Vector3(0, 1.0f, -2.0f);
+                    }
                     shouldRotate = true;
 
 
@@ -426,7 +436,16 @@ public class CubeJump : MonoBehaviour
                     }
 
 
-                    targetPosition += new Vector3(0, 1.0f, 2.0f);
+
+                    if (canJumpMidF == true)
+                    {
+                        targetPosition += new Vector3(0, 0, 2.0f);
+                    }
+                    else
+                    {
+                        targetPosition += new Vector3(0, 1.0f, 2.0f);
+                    }
+
                     shouldRotate = true;
 
 
@@ -506,37 +525,62 @@ public class CubeJump : MonoBehaviour
     {
         int ignoreRaycastLayer = 1 << LayerMask.NameToLayer("ignoreRayCast");
 
-        bool hitBack = Physics.Raycast(rayPosition.position, Vector3.back, out RaycastHit hitBackResult, 1.0f);
-        bool hitRight = Physics.Raycast(rayPositionRight.position, Vector3.right, out RaycastHit hitRightResult, 2.0f,
-            ~ignoreRaycastLayer);
-        bool hitLeft = Physics.Raycast(rayPositionLeft.position, Vector3.left, out RaycastHit hitLeftResult, 2.0f,
-            ~ignoreRaycastLayer);
+        bool hitDown = Physics.Raycast(rayPositionDown.position, Vector3.down, out RaycastHit hitDownResult, 1.0f);
 
+        bool hitRight = Physics.Raycast(rayPositionRight.position, Vector3.right, out RaycastHit hitRightResult, 2.0f);
+        bool hitLeft = Physics.Raycast(rayPositionLeft.position, Vector3.left, out RaycastHit hitLeftResult, 2.0f);
+        bool hitForward = Physics.Raycast(rayPositionForward.position, Vector3.forward, out RaycastHit hitForwardResult, 2.0f, ~ignoreRaycastLayer);
+        bool hitBack = Physics.Raycast(rayPositionBack.position, Vector3.back, out RaycastHit hitBackResult, 2.0f, ~ignoreRaycastLayer);
 
+        // F
+        if (hitForward && hitForwardResult.collider.CompareTag("Cube"))
+        {
+            canJumpMidF = true;
+            // canJumpDownR = true;
+            // canJumpDownL = true;
+        }
+
+        // B
         if (hitBack && hitBackResult.collider.CompareTag("Cube"))
         {
-            canJumpDownR = false;
-            canJumpDownL = false;
+            canJumpMidB = true;
+            // canJumpDownR = true;
+            // canJumpDownL = false;
+        }
+
+        // D
+        if (hitDown && hitDownResult.collider.CompareTag("Cube"))
+        {
+            canJumpMidR = false;
+            canJumpMidL = false;
             return true;
         }
 
+        // R
         if (hitRight && hitRightResult.collider.CompareTag("Cube"))
         {
-            canJumpDownR = false;
-            canJumpDownL = true;
+            canJumpMidR = false;
+        }
+        else
+        {
+            canJumpMidR = false;
         }
 
+        // L
         if (hitLeft && hitLeftResult.collider.CompareTag("Cube"))
         {
-            canJumpDownR = true;
-            canJumpDownL = false;
+            canJumpMidL = false;
+        }
+        else
+        {
+            canJumpMidL = false;
         }
 
-        if (!hitBack && !hitRight && !hitLeft)
-        {
-            canJumpDownR = true;
-            canJumpDownL = true;
-        }
+        // if (!hitDown && !hitRight && !hitLeft)
+        // {
+        //     canJumpDownR = true;
+        //     canJumpDownL = true;
+        // }
 
         return false;
     }

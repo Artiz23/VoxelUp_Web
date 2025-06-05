@@ -10,7 +10,7 @@ public class RandomCube : MonoBehaviour
     public int countFirstPrefab = 4;
 
     private int countCube = 2;
-    public int canCreateCount = 2;
+    public int canCreateCount = 4;
 
     private bool canCreateFakeL = false;
     private bool canCreateFakeR = false;
@@ -36,7 +36,14 @@ public class RandomCube : MonoBehaviour
         }
     }
 
-
+    // int GetWeightedRandomY()
+    // {
+    //     {
+    //         int random = Random.Range(0, 100);
+    //         return random < 70 ? 1 : 0;
+    //     }    
+    // }
+    
     public void CreateRandomCube()
     {
         if (ScoreManager.score > 50)
@@ -55,7 +62,7 @@ public class RandomCube : MonoBehaviour
             moveScore = 15;
         }
 
-       
+
         int offsetX = 0;
         int offsetY = 1;
         int offsetZ = 2;
@@ -123,14 +130,17 @@ public class RandomCube : MonoBehaviour
             canCreateFakeR = false;
         }
 
+        
+        // int randomY = GetWeightedRandomY();
         // Создание новой позиции для куба относительно последнего куба
-        Vector3Int newPosition = lastCubePosition + new Vector3Int((randomDirection == 0) ? offsetX : 0, offsetY, (randomDirection == 2) ? offsetZ : 0);
+        Vector3Int newPosition = lastCubePosition + new Vector3Int((randomDirection == 0) ? offsetX : 0, 1, (randomDirection == 2) ? offsetZ : 0);
 
         int randomChance = Random.Range(0, 100);
 
 
         if (createdCubes == 49)
         {
+            //Check Point
             newCube = Instantiate(cubePrefab[6], newPosition, Quaternion.identity);
             countFirstPrefab += 1;
             countCreateFake += 1;
@@ -182,6 +192,30 @@ public class RandomCube : MonoBehaviour
         {
             // fake cube L2
             newCube = Instantiate(cubePrefab[5], newPosition, Quaternion.identity);
+            countFirstPrefab += 1;
+            canCreateFakeR = false;
+            countCreateFake = 0;
+
+            onlyForward = 2;
+
+            createdCubes += 1;
+        }
+        else if (randomChance > 50 && canCreateFakeL == true && countCreateFake >= 5)
+        {
+            // fake cube L3
+            newCube = Instantiate(cubePrefab[8], newPosition, Quaternion.identity);
+            countFirstPrefab += 1;
+            canCreateFakeR = false;
+            countCreateFake = 0;
+
+            onlyForward = 2;
+
+            createdCubes += 1;
+        }
+        else if (randomChance > 50 && canCreateFakeR == true && countCreateFake >= 5)
+        {
+            // fake cube R3
+            newCube = Instantiate(cubePrefab[9], newPosition, Quaternion.identity);
             countFirstPrefab += 1;
             canCreateFakeR = false;
             countCreateFake = 0;

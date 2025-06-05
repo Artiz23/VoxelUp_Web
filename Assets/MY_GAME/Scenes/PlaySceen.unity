@@ -836,17 +836,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cubePrefab:
   - {fileID: 2651132017828508807, guid: 6a5b6026a1ef14f4ab1712fb27705963, type: 3}
-  - {fileID: 2651132017828508807, guid: 24b97053f3d761741af7c96d7dc8fe48, type: 3}
+  - {fileID: 2651132017828508807, guid: 6a5b6026a1ef14f4ab1712fb27705963, type: 3}
   - {fileID: 4148005520900809728, guid: 47af6c0b41e7dc1458d408aed2939fda, type: 3}
   - {fileID: 177818703809834735, guid: d10e8943094ce32429789e35bf328e4d, type: 3}
   - {fileID: 177818703809834735, guid: 76344a11bbd40f24c82241b280f31883, type: 3}
   - {fileID: 177818703809834735, guid: 6a0a5cee0ab39dd438e43e451a608091, type: 3}
   - {fileID: 2651132017828508807, guid: e33a8df0288e1b04799d93b6d037e81c, type: 3}
   - {fileID: 2651132017828508807, guid: 10bacba75453931428df924154cab005, type: 3}
+  - {fileID: 4148005520900809728, guid: 124c380b048b3f845bb7894c6233662f, type: 3}
+  - {fileID: 4063653897118132860, guid: ae73fd3f75b192a4da2c9516fdc01659, type: 3}
   canCreateLeft: 1
   canCreateRight: 1
   countFirstPrefab: 4
-  canCreateCount: 2
+  canCreateCount: 5
   countCreateFake: 0
   onlyForward: 0
   createdCubes: 0
@@ -1115,7 +1117,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1517083358}
   - component: {fileID: 1517083359}
-  - component: {fileID: 1517083360}
   m_Layer: 0
   m_Name: ScoreManager
   m_TagString: ScoreManager
@@ -1152,18 +1153,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HighScoreText: {fileID: 7538346168936170906}
   ScoreText: {fileID: 7584046856559109834}
---- !u!114 &1517083360
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1517083357}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 501cf066e8cc26f41b20d1085e9a1066, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1579421444
 GameObject:
   m_ObjectHideFlags: 0
@@ -1182,7 +1171,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1579421445
 RectTransform:
   m_ObjectHideFlags: 0

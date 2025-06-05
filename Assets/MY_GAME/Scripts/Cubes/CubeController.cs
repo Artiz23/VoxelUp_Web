@@ -65,15 +65,10 @@ public class CubeController : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-
             if (anim != null)
             {
                 anim.Play();
             }
-
-
-
-
 
             StartCoroutine(FallCoroutineHolding());
         }
@@ -91,7 +86,7 @@ public class CubeController : MonoBehaviour
     private IEnumerator FallCoroutineHolding()
     {
 
-        yield return new WaitForSeconds(countFall); // Ждем 2 секунды перед падением
+        yield return new WaitForSeconds(countFall);
         if (particleSystems != null)
         {
             particleSystems.Play();
@@ -109,19 +104,19 @@ public class CubeController : MonoBehaviour
             Destroy(chinaCube);
         }
         Rigidbody rb = GetComponent<Rigidbody>();
-        rb.isKinematic = false; // Разрешаем физику для падения
+        rb.isKinematic = false;
 
-        yield return new WaitForSeconds(1.0f); // Ждем еще 1 секунду перед удалением
-        Destroy(gameObject); // Удаляем объект куба
+        yield return new WaitForSeconds(1.0f);
+        Destroy(gameObject);
     }
 
     private IEnumerator FallAndDestroyCoroutine()
     {
-        yield return new WaitForSeconds(0f); // Ждем 0 секунды перед падением
+        yield return new WaitForSeconds(0f);
         Rigidbody rb = GetComponent<Rigidbody>();
-        rb.isKinematic = false; // Разрешаем физику для падения
+        rb.isKinematic = false;
 
-        yield return new WaitForSeconds(1f); // Ждем еще 0,5 секунды перед удалением
-        Destroy(gameObject); // Удаляем объект куба
+        yield return new WaitForSeconds(1f);
+        Destroy(gameObject);
     }
 }
